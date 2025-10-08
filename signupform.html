@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Signup Form</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 20px;
+            }
+            .signup-form {
+                max-width: 400px;
+                margin: auto;
+                padding: 20px;
+                border: 1px solid #ccc;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            }
+            .signup-form input,
+            .signup-form button {
+                width: 100%;
+                margin: 10px 0;
+                padding: 10px;
+                font-size: 16px;
+            }
+            .error {
+                color: red;
+                font-size: 14px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="signup-form">
+            <h2>Signup Form</h2>
+            <form id="signupForm">
+                <input type="text" id="name" placeholder="Enter your name" />
+                <span id="nameError" class="error"></span>
+                <input type="email" id="email" placeholder="Enter your email" />
+                <span id="emailError" class="error"></span>
+                <input
+                    type="text"
+                    id="phone"
+                    placeholder="Enter your phone number"
+                />
+                <span id="phoneError" class="error"></span>
+                <input
+                    type="password"
+                    id="password"
+                    placeholder="Enter your password"
+                />
+                <span id="passwordError" class="error"></span>
+                <button type="button" onclick="validateForm()">Signup</button>
+            </form>
+        </div>
+
+        <script>
+            function validateForm() {
+                // Clear previous error messages
+                document.getElementById("nameError").textContent = "";
+                document.getElementById("emailError").textContent = "";
+                document.getElementById("phoneError").textContent = "";
+                document.getElementById("passwordError").textContent = "";
+
+                const name = document.getElementById("name").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const phone = document.getElementById("phone").value.trim();
+                const password = document
+                    .getElementById("password")
+                    .value.trim();
+
+                let isValid = true;
+
+                // Name validation
+                if (name.length < 3 || /\d/.test(name)) {
+                    document.getElementById("nameError").textContent =
+                        "Name must be at least 3 characters long and should not contain numbers.";
+                    isValid = false;
+                }
+
+                // Email validation
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email)) {
+                    document.getElementById("emailError").textContent =
+                        "Please enter a valid email address.";
+                    isValid = false;
+                }
+
+                // Phone validation
+                if (phone.length < 10 || isNaN(phone)) {
+                    document.getElementById("phoneError").textContent =
+                        "Phone number must be at least 10 digits long.";
+                    isValid = false;
+                }
+
+                // Password validation
+                if (password.length < 6) {
+                    document.getElementById("passwordError").textContent =
+                        "Password must be at least 6 characters long.";
+                    isValid = false;
+                }
+
+                if (isValid) {
+                    alert("Signup successful!");
+                }
+            }
+        </script>
+    </body>
+</html>
